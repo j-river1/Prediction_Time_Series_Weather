@@ -1,5 +1,6 @@
 #PREDICTION FOR SERIES TIMES
 library(ggplot2)
+library(ts)
 #Read files 
 
 files <- lapply(list.files(path = "../TrainingData"), function(x) {
@@ -30,13 +31,14 @@ names(files) <- name_files(list.files(path = "../TrainingData"))
 #Arguments    - table. Series Time
 #Return       - Plot         
 
-graph_series <- function(table, variable, station_name, model)
+graph_series <- function(table, variable, station_name, model, periods)
 {
   
   if(variable == "X1")
   {
+    periods <- seq(193, periods + 192)
     table_ori <- data.frame(table$times,table$X1)
-    table_model <- data.frame(table$times, model)
+    table_model <- data.frame(periods, model)
     colnames(table_ori) <- c("Time", "Value") 
     colnames(table_model) <- c("Time", "Value")
     table_ori$group <- "X1"
@@ -171,9 +173,58 @@ regression_analysis <- function(table, variable, station_name)
 
 }
 
-exponential_smooth <- function (table, variable, station_name)
+exponential_smooth <- function (table, variable, station_name, periods)
 {
-  
+
+  if(variable == "X1")
+  {
+    series <- ts(table$X1, frequency = 12)
+    holtWinter <- HoltWinters(series)
+    predict <- predict(holtWinter, n.ahead= periods)
+    value_regre <- as.numeric(predict)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
+  if(variable == "X2")
+  {
+    data <- table$X2
+    regre <- lm(data~t+sin.t+cos.t)
+    value_regre <- as.numeric(regre$fit)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
+  if(variable == "X3")
+  {
+    data <- table$X3
+    regre <- lm(data~t+sin.t+cos.t)
+    value_regre <- as.numeric(regre$fit)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
+  if(variable == "X4")
+  {
+    data <- table$X4
+    regre <- lm(data~t+sin.t+cos.t)
+    value_regre <- as.numeric(regre$fit)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
+  if(variable == "X5")
+  {
+    data <- table$X5
+    regre <- lm(data~t+sin.t+cos.t)
+    value_regre <- as.numeric(regre$fit)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
+  if(variable == "X6")
+  {
+    data <- table$X6
+    regre <- lm(data~t+sin.t+cos.t)
+    value_regre <- as.numeric(regre$fit)
+    graph <- graph_series(table, variable, station_name, value_regre)
+    print(graph)
+  }
   
 }
   
