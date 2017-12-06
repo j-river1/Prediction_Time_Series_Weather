@@ -33,14 +33,21 @@ names(files) <- name_files(list.files(path = "../TrainingData"))
 
 graph_series <- function(table, variable, station_name, model, periods)
 {
+    nrows <- 192 + periods
+    ncol <- 2
+    table_ori <- data.frame(matrix(NA, nrow = nrows, ncol = 2))
+    table_model <- data.frame(matrix(NA, nrow = nrows, ncol = 2))
+    colnames(table_ori) <- c("Time", "Value") 
+    colnames(table_model) <- c("Time", "Value")
   
   if(variable == "X1")
   {
-    periods <- seq(193, periods + 192)
-    table_ori <- data.frame(table$times,table$X1)
-    table_model <- data.frame(periods, model)
-    colnames(table_ori) <- c("Time", "Value") 
-    colnames(table_model) <- c("Time", "Value")
+    table_ori$Time <- table$times
+    table_ori$Value  <- table$X1
+    
+    table_model$Time <- table$times
+    table_model$Value[193:nrows] <- model
+    
     table_ori$group <- "X1"
     table_model$group <- "Model"
     table_all <- rbind(table_ori,table_model )
