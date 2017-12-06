@@ -290,9 +290,9 @@ exponential_smooth <- function (table, variable, station_name, periods)
     
     #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
-    
-    
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2<- R2(value_regre,obs = actual)
   }
   if(variable == "X2")
   {
@@ -305,7 +305,9 @@ exponential_smooth <- function (table, variable, station_name, periods)
     
     #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre )^2)/sum((actual-mean(actual))^2))
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2<- R2(value_regre,obs = actual)
     
   }
   if(variable == "X3")
@@ -317,9 +319,10 @@ exponential_smooth <- function (table, variable, station_name, periods)
     graph <- graph_series(table, variable, station_name, value_regre, periods)
     print(graph)
     
-    #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre )^2)/sum((actual-mean(actual))^2))
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2 <- R2(value_regre,obs = actual)
     
   }
   if(variable == "X4")
@@ -331,9 +334,10 @@ exponential_smooth <- function (table, variable, station_name, periods)
     graph <- graph_series(table, variable, station_name, value_regre, periods)
     print(graph)
     
-    #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre )^2)/sum((actual-mean(actual))^2))
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2 <- R2(value_regre,obs = actual)
     
   }
   if(variable == "X5")
@@ -345,9 +349,10 @@ exponential_smooth <- function (table, variable, station_name, periods)
     graph <- graph_series(table, variable, station_name, value_regre, periods)
     print(graph)
     
-    #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre )^2)/sum((actual-mean(actual))^2))
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2 <- R2(value_regre,obs = actual)
     
   }
   if(variable == "X6")
@@ -359,9 +364,10 @@ exponential_smooth <- function (table, variable, station_name, periods)
     graph <- graph_series(table, variable, station_name, value_regre, periods)
     print(graph)
     
-    #rsquared
     actual <- table$X1[(length(table$X1)-periods+1):length(table$X1)]
-    R2 <- 1 - (sum((actual-value_regre )^2)/sum((actual-mean(actual))^2))
+    #R2 <- 1 - (sum((actual-value_regre)^2)/sum((actual-mean(actual))^2))
+    RMSE(value_regre,obs = actual)
+    R2 <- R2(value_regre,obs = actual)
     
   }
   
