@@ -1,6 +1,11 @@
 #PREDICTION FOR SERIES TIMES
 library(ggplot2)
 library(ts)
+library(caret)
+
+mainDir <- getwd()
+dir.create(file.path(mainDir, "Results"), showWarnings = FALSE)
+
 #Read files 
 
 files <- lapply(list.files(path = "../TrainingData"), function(x) {
@@ -31,7 +36,8 @@ names(files) <- name_files(list.files(path = "../TrainingData"))
 
 average_series_time <- function (data_series, variable)
 {
-
+  average_data <- NULL
+  
   if(variable == "X1")
   {
     data <- data_series$X1
@@ -374,11 +380,28 @@ exponential_smooth <- function (table, variable, station_name, periods)
   return(R2)
 }
 
-rsquared <- function (table)
+
+#Check all stations for holwinter
+
+check_all_stations <- function(all_clusters, variable, periods)
 {
   
+  results  <- data.frame(matrix(NA, nrow = 26, ncol = 4))
+  names(results) <- c("Name_Cluster", "Variable", "Time_Prediction", "R_squared")
+  time_prediction <- c(12,24,36,48)
+  r_squared <- lapply(files,exponential_smooth, variable= "X1", station_name = names(files), periods= periods )
+  results$Name_Cluster <- names(files)
+  results$R_squared <- r_squared
+  results$R_squared <- as.double(results$R_squared )
+  results$Time_Prediction <- periods
+  results$Variable <- variable
   
+  #Save Document
   
-  
+  name <- paste0("Results_", variable, "_", periods ,".csv")
+  originaldata <- paste0("./", "Results", "/", name )
+  write.csv(results, file = originaldata, row.names = FALSE )
+
 }
-  
+
+
